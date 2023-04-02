@@ -5,29 +5,28 @@ def game_core_v3(number: int = 1) -> int:
     predict = np.random.randint(1, 101)
     while number != predict:
         count += 1 
-        if 101 > number > 75:
+        if number // 10 == 0:
             if number > predict:
-                predict += 1
+                predict += 10
             elif number < predict:
-                predict -= 1
-                    
-        if 76 > number > 50:
+                predict -= 10 
+        if number // 10 != 0 and number // 5 == 0:
             if number > predict:
-                predict += 1
+                predict += 10
             elif number < predict:
-                predict -= 1
-                    
-        if 51 > number > 25:
+                predict -= 10  
+        if number // 5 != 0 and number //2 == 0:
             if number > predict:
-                predict += 1
+                predict += 2
             elif number < predict:
-                predict -= 1
-                    
-        else:
+                predict -= 2
+        else: 
             if number > predict:
-                predict += 1
+                predict += 10
             elif number < predict:
-                predict -= 1
+                predict -= 10  
+                 
+    return (count) 
             
 
 def score_game(game_core_v3) -> int:

@@ -51,3 +51,4 @@ def score_game(game_core_v3) -> int:
     #Run benchmarking to score effectiveness of all algorithms
 
 score_game(game_core_v3)
+

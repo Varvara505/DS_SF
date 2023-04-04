@@ -14,32 +14,28 @@ def game_core_v3(number: int = 1) -> int:
         int: Число попыток
     """
     count = 0
+    a = list(range(1,101))
+    low = 0
+    high = len(a) - 1
+    mid = (low + high) // 2
     
-    while True:
-        count += 1
-        predict_number = np.random.randint(1, 101)  # предполагаемое число
-        if number == predict_number:
-            break # выход из цикла если угадали
-        else:
-            if number > 50:
-                predict_number = np.random.randint(51, 101)
-                while True:
-                    if number == predict_number:
-                        break   
-            else:
-                predict_number = np.random.randint(1, 51)
-                while True:
-                    if number == predict_number:
-                        break    
+    while a[mid] != number:
+        count += 1 
+        if number > a[mid]:
+            low = mid + 1
+        elif number < a[mid]:
+            high = mid - 1
+        mid = (low + high) // 2
+ 
     return count
 
 
 
-def score_game(random_predict) -> int:
+def score_game(game_core_v3) -> int:
     """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
 
     Args:
-        random_predict ([type]): функция угадывания
+        game_core_v3 ([type]): функция угадывания
 
     Returns:
         int: среднее количество попыток
@@ -49,7 +45,7 @@ def score_game(random_predict) -> int:
     random_array = np.random.randint(1, 101, size=(1000))  # загадали список чисел
 
     for number in random_array:
-        count_ls.append(random_predict(number))
+        count_ls.append(game_core_v3(number))
 
     score = int(np.mean(count_ls))
     print(f"Ваш алгоритм угадывает число в среднем за:{score} попыток")
@@ -58,5 +54,5 @@ def score_game(random_predict) -> int:
 
 if __name__ == "__main__":
     # RUN
-    score_game(random_predict)
+    score_game(game_core_v3)
 
